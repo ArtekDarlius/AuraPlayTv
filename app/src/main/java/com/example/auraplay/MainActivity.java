@@ -23,6 +23,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -109,6 +110,15 @@ public class MainActivity extends AppCompatActivity {
         final ActionBar ab = getSupportActionBar();
 
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode== KeyEvent.KEYCODE_BACK)){
+            finishAffinity();
+            System.exit(0);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
