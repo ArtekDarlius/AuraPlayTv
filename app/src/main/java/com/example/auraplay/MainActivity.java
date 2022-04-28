@@ -2,7 +2,6 @@ package com.example.auraplay;
 
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -13,7 +12,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -21,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -30,13 +27,9 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -44,7 +37,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,8 +50,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,16 +78,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 1);
 
-
-
         CreateFolder();
-
-
 
 
         registerReceiver(downloadReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -152,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     private class DownloadJSON extends AsyncTask<Void, Void, String> {
 
@@ -217,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
                         downloadfile(path);
                     }
 
-
                 }
                 if (pDialog.isShowing()) pDialog.dismiss();
 
@@ -274,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
            long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1);
            if (id==downloadId){
                Toast.makeText(getApplicationContext(), "Download Complete", Toast.LENGTH_SHORT).show();
-               //mDialog.dismiss();
                alertDialog.dismiss();
                createPlaylist();
                playListVideo();
@@ -282,30 +264,17 @@ public class MainActivity extends AppCompatActivity {
        }
    };
 
-    public void showDialog(){
-        mDialog = new ProgressDialog(this);
-        mDialog.setMessage("Downloading...");
-        mDialog.setCancelable(false);
-        mDialog.setCanceledOnTouchOutside(false);
-        mDialog.show();
-    }
-
     public void showDialogGIF(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = View.inflate(this,R.layout.dialog_gif,null);
         ImageView gif= dialogView.findViewById(R.id.iv_gif);
-       // dialogView.findViewById(R.id.tv_loading).setVisibility(View.);
         Glide.with(this).load(R.drawable.logo).into(gif);
         builder.setView(dialogView);
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
-
-
-
-
     }
 
     private void CreateFolder(){
@@ -313,9 +282,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (!ruta.exists()){
             ruta.mkdirs();
-           // Toast.makeText(getApplicationContext(),"Fichero creado", Toast.LENGTH_SHORT).show();
+
         }else{
-           // Toast.makeText(getApplicationContext(),"Fichero no creado, ya existe", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -333,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(name);
                 System.out.println(file);
                 new File(file,name).delete();
-                //ficheros[i].delete();
             }
         }
         ficheros=file.listFiles();
@@ -350,7 +318,6 @@ public class MainActivity extends AppCompatActivity {
 
                 videoView.setVideoURI(uri);
                 videoView.setMediaController(null);
-                //  mc.setAnchorView(videoView);
                 videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
@@ -367,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
                             Uri uri = Uri.parse(path);
                             videoView.setVideoURI(uri);
                             videoView.setMediaController(null);
-                            // mc.setAnchorView(videoView);
+
                             videoView.start();
                             if (playPosition == (ficheros.length - 1)) {
                                 playPosition = 0;
@@ -411,8 +378,6 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
-           // Toast.makeText(this, "Landscape", Toast.LENGTH_SHORT).show();
-
 
         }
     }
