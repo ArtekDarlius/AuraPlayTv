@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AuraPlay</string>
+    <string name="app_name2"></string>
+    <string name="DialogQuestion">Do you want download the media again?</string>
+    <string name="positive">Yes</string>
+    <string name="negative">No</string>
+    <string name="Downloading">Downloading...</string>
+</resources>
