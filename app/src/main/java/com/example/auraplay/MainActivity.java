@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         CreateFolder();
 
-
         registerReceiver(downloadReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
         videoView= findViewById(R.id.videoV);
@@ -93,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
-
-
     }
 
     @Override
